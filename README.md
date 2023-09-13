@@ -3,12 +3,15 @@ Send Prometheus alerts via Skype
 
 Usage
 -----
-#
+# 
+Must support multiple users in config
 Edit the configuration file (defaults to ``/etc/prometheus/skype-alerts.yml``):
 ```yaml
 skype_user: 'alerts@example.com'
 password: 'PASSWORD'
-to_user: 'skype_username_to_send' # or LiveID 'live:.cid.cd13cb' or ChatID '19:XXXX@thread.skype'
+to_user:
+  - 'skype_username_to_send' # or LiveID 'live:.cid.cd13cb' or ChatID '19:XXXX@thread.skype'
+  - 'more_usernames_to_send'
 listen_address: '0.0.0.0'
 listen_port: 9478
 format: 'short'
