@@ -126,10 +126,11 @@ async def serve_test(request):
     to_user = request.match_info.get('to_user', config['to_user'])
     test_counter.inc()
     try:
-        if '@thread.skype' in to_user:
-            skype_app.chats[to_user].sendMsg(TEST_MSG)
+        if type(to_user) == list:
+            for user in to_user:
+                do_send(user, TEST_MSG)
         else:
-            skype_app.contacts[to_user].chat.sendMsg(TEST_MSG)       
+            do_send(to_user, TEST_MSG)
     except SkypeAuthException as e:
         logging.warning('Test alert not posted since we are not online: %s', e)
         return web.Response(
