@@ -157,9 +157,10 @@ async def serve_alert(request):
             text = '\n'.join(create_message_short(alert))
         try:
             if type(to_user) == list:
-                do_send( user, text ) for user in to_user
+                for user in to_user:
+                    do_send(user, text)
             else:
-                do_send( to_user, text )
+                do_send(to_user, text)
         except SkypeAuthException as e:
             logging.warning('Alert posted but we are not online: %s', e)
             last_alert_message_succeeded_gauge.set(0)
