@@ -138,8 +138,9 @@ async def serve_test(request):
     else:
         return web.Response(body='Sent message.')
 
-async def do_send(user,text):
-    if '@thread.skype' in to_user:
+def do_send(user,text):
+    print(user)
+    if '@thread.skype' in user:
         skype_app.chats[user].sendMsg(text)
     else:
         skype_app.contacts[user].chat.sendMsg(text)
