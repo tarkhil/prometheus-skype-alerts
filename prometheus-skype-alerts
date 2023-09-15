@@ -122,6 +122,7 @@ skype_app = SkypeApp(
     config.get('amtool_allowed', [config['to_user']]),
     config.get('alertmanager_url', None))
 
+
 async def serve_test(request):
     to_user = request.match_info.get('to_user', config['to_user'])
     test_counter.inc()
@@ -139,7 +140,6 @@ async def serve_test(request):
         return web.Response(body='Sent message.')
 
 def do_send(user,text):
-    print(user)
     if '@thread.skype' in user:
         skype_app.chats[user].sendMsg(text)
     else:
